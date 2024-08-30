@@ -96,11 +96,13 @@ let productslice = createSlice({
         console.log(state);
       })
       .addCase(getproducttowishlist.fulfilled, (state, action) => {
-        state.Wish = action.payload.data;
-        console.log(state.Wish.length + " products in wish list");
+        state.Wish = action?.payload?.data;
+        console.log(state?.Wish.length + " products in wish list");
       })
       .addCase(Removeproductfromwishlist.fulfilled, (state, action) => {
-        state.Wish = state.Wish.filter((item) => item.id !== action.payload.id);
+        state.Wish = state?.Wish?.filter(
+          (item) => item?.id !== action?.payload?.id
+        );
       });
   },
 });

@@ -33,11 +33,7 @@ function App() {
       children: [
         {
           index: true,
-          element: (
-            <ProtectedRoutes>
-              <Home />
-            </ProtectedRoutes>
-          ),
+          element: <Home />,
         },
         {
           path: "cart",
@@ -168,7 +164,10 @@ function App() {
       <Toaster position="right" reverseOrder={false} />
 
       <QueryClientProvider client={queryClient}>
-        <RouterProvider router={route}></RouterProvider>
+        <RouterProvider
+          router={route}
+          basename={"/zekolaStore/"}
+        ></RouterProvider>
         <ReactQueryDevtools initialIsOpen={false} />
         {/* <Offline>
           <div className="fixed bg-red-500 text-2xl font-semibold text-white py-2 rounded-md">

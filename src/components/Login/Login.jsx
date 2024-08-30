@@ -6,15 +6,28 @@ import Loader from "../Loader/Loader";
 import style from "./Login.module.css";
 import { TokenContext } from "../../TokenContext/Tokencontext";
 import { Link, useNavigate } from "react-router-dom";
+import { CartContext } from "../CartContext/CartContext";
+import { useDispatch } from "react-redux";
+import { getproducttowishlist } from "../../Redux/Productslice";
 
 export default function Register() {
   const [userMessage, setuserMessage] = useState(null);
   const [usererror, setuserusererror] = useState(null);
   const [isLoading, setisLoading] = useState(false);
   const [isDisabled, setisDisabled] = useState(true);
+
   let { setToken } = useContext(TokenContext);
+  let { getcardproducts, setproducts } = useContext(CartContext);
+  let dispatch = useDispatch();
 
   const [isVisible, setisVisible] = useState(false);
+
+  async function getcardproductsinto() {
+    let response = await getcardproducts();
+    console.log(response?.data?.data?.products);
+    setproducts(response?.data?.data?.products);
+  }
+
   let Schema = Yup.object().shape({
     email: Yup.string().email("invalid email").required("email required"),
     password: Yup.string()
@@ -38,6 +51,8 @@ export default function Register() {
         console.log(data.data);
         localStorage.setItem("userToken", data.data.token);
         localStorage.getItem("medhat");
+        getcardproductsinto();
+        dispatch(getproducttowishlist());
         navigate("/");
       })
       .catch((error) => {
@@ -72,8 +87,8 @@ export default function Register() {
   }
   return (
     <>
-      <form onSubmit={formik.handleSubmit} className="max-w-xl mx-auto ">
-        <h1 className="text-3xl text-green-600 mb-8">Register Now :</h1>
+      <form onSubmit={formik.handleSubmit} className="max-w-xl mx-auto mt-20">
+        <h1 className="text-3xl text-green-600 mb-8">Login Now :</h1>
         {userMessage ? (
           <div
             className=" text-center p-4 mb-4 text-3xl text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400"
@@ -118,6 +133,7 @@ export default function Register() {
             Email :
           </label>
         </div>
+
         <div className="relative z-0 w-full mb-5 group">
           <input
             type={isVisible ? "text" : "password"}
@@ -130,6 +146,14 @@ export default function Register() {
             className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer"
             placeholder=" "
           />
+          <div className=" absolute right-6 top-1">
+            <i
+              onClick={() => eyetoggle()}
+              className="fa-solid fa-eye fa-lg "
+              style={{ color: "#000000" }}
+            />
+          </div>
+
           {formik.errors.password && formik.touched.password ? (
             <div
               className="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-500"
@@ -144,11 +168,6 @@ export default function Register() {
           >
             password :
           </label>
-          <i
-            onClick={() => eyetoggle()}
-            className="fa-solid fa-eye fa-lg inline absolute right-7 bottom-5"
-            style={{ color: "#000000" }}
-          />
         </div>
 
         <div className="mt-10 flex justify-between items-center">

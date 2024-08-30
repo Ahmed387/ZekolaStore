@@ -13,13 +13,12 @@ import { store } from "./Redux/store.js";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <Provider store={store}>
-    <CartContextprovider>
-      <TokenContextprovider>
+    <TokenContextprovider>
+      <CartContextprovider>
         <Countercontextprovider>
           <App />
         </Countercontextprovider>
-      </TokenContextprovider>
-    </CartContextprovider>
+      </CartContextprovider>
+    </TokenContextprovider>
   </Provider>
-  
-)
+);

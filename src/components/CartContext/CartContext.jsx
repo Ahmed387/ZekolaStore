@@ -10,6 +10,7 @@ export default function CartContextprovider(props) {
   const [Totalprice, setTotalprice] = useState(0);
   const [Cartid, setCartid] = useState(null);
   const [Numberofwishlist, setNumberofwishlist] = useState(0);
+  const [products, setproducts] = useState([]);
 
   async function AddProductToCart(productId) {
     return await axios
@@ -148,6 +149,8 @@ export default function CartContextprovider(props) {
         CashPayment,
         setNumberofwishlist,
         Numberofwishlist,
+        setproducts,
+        products,
       }}
     >
       {props.children}

@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 
 export default function Cart() {
-  const [products, setproducts] = useState([]);
+  //// const [products, setproducts] = useState([]);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   let {
     ClearCart,
@@ -14,6 +14,8 @@ export default function Cart() {
     Updatecartitem,
     Totalprice,
     setTotalprice,
+    setproducts,
+    products,
   } = useContext(CartContext);
 
   async function getcardproductsinto() {
@@ -250,7 +252,7 @@ export default function Cart() {
           ) : null}
         </div>
       )}
-       <Helmet>
+      <Helmet>
         <meta charSet="utf-8" />
         <title>Cart</title>
       </Helmet>

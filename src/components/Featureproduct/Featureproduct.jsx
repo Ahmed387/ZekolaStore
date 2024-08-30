@@ -9,15 +9,25 @@ import {
   getproducttowishlist,
   Removeproductfromwishlist,
 } from "../../Redux/Productslice";
+import { TokenContext } from "../../TokenContext/Tokencontext";
 
 //import style from "./Featueproduct.module.css";
 export default function Featureproduct() {
   let dispatch = useDispatch();
-  let { AddProductToCart, setNumberofwishlist, Numberofwishlist } =
-    useContext(CartContext);
+  let {
+    AddProductToCart,
+    setNumberofwishlist,
+    Numberofwishlist,
+    getcardproducts,
+    setproducts,
+    //    Deleteitems,
+    //  Updatecartitem,
+  } = useContext(CartContext);
+  const { setToken, Token } = useContext(TokenContext);
   const [idbag, setidbag] = useState({});
   const [S, setS] = useState("");
   const [Filter, setFilter] = useState([]);
+  const [isLoggedIn, setisLoggedIn] = useState(false);
 
   function getfeatureproduct() {
     return axios.get("https://ecommerce.routemisr.com/api/v1/products");
@@ -70,17 +80,6 @@ export default function Featureproduct() {
   console.log(products.length + " products in wish list");
   console.log(Addpro);
 
-  useEffect(() => {
-    const wishlistIds = Addpro.Wish.map((item) => item.id);
-    const newIdBag = wishlistIds.reduce((acc, id) => {
-      acc[id] = true;
-
-      return acc;
-    }, {});
-
-    setidbag(newIdBag);
-  }, []);
-
   async function toggle(id) {
     let itemClicked = idbag[id];
     setidbag((idbag) => ({ ...idbag, [id]: !idbag[id] }));
@@ -109,12 +108,45 @@ export default function Featureproduct() {
     localStorage.setItem("medhat", products.length);
   }, [Display]);
 
+  async function getcardproductsinto() {
+    let response = await getcardproducts();
+    console.log(response?.data?.data?.products);
+    setproducts(response?.data?.data?.products);
+  }
+
+  useEffect(() => {
+    const wishlistIds = Addpro.Wish.map((item) => item.id);
+    const newIdBag = wishlistIds.reduce((acc, id) => {
+      acc[id] = true;
+
+      return acc;
+    }, {});
+
+    setidbag(newIdBag);
+  }, []);
+
   useEffect(() => {
     const storedMedhat = localStorage.getItem("medhat");
     if (storedMedhat) {
       console.log("Stored medhat:", storedMedhat);
     }
+    getcardproductsinto();
   }, []);
+
+  useEffect(() => {
+    localStorage.getItem("userToken")
+      ? setToken(localStorage.getItem("userToken"))
+      : setToken(null);
+  }, []);
+
+  useEffect(() => {
+    setisLoggedIn(true);
+    if ((isLoggedIn, Token)) {
+      window.location.reload();
+      console.log("Token is here");
+    }
+  }, []);
+
   return (
     <>
       {isError ? (

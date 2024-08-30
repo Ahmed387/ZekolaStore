@@ -168,6 +168,13 @@ export default function Register() {
             className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer"
             placeholder=" "
           />
+          <div className=" absolute right-6 top-2">
+            <i
+              onClick={() => eyetoggle()}
+              className="fa-solid fa-eye fa-lg "
+              style={{ color: "#000000" }}
+            />
+          </div>
 
           {formik.errors.password && formik.touched.password ? (
             <div
@@ -183,11 +190,6 @@ export default function Register() {
           >
             password :
           </label>
-          <i
-            onClick={() => eyetoggle()}
-            className="fa-solid fa-eye fa-lg inline absolute right-7 bottom-5"
-            style={{ color: "#000000" }}
-          />
         </div>
         <div className="relative z-0 w-full mb-5 group">
           <input
@@ -201,6 +203,13 @@ export default function Register() {
             className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer"
             placeholder=" "
           />
+          <div>
+            <i
+              onClick={() => eyetoggle1()}
+              className="fa-solid fa-eye fa-lg  absolute right-6 top-5"
+              style={{ color: "#000000" }}
+            />
+          </div>
           {formik.errors.rePassword && formik.touched.rePassword ? (
             <div
               className="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-500"
@@ -215,11 +224,6 @@ export default function Register() {
           >
             rePassword :
           </label>
-          <i
-            onClick={() => eyetoggle1()}
-            className="fa-solid fa-eye fa-lg inline absolute right-7 bottom-5"
-            style={{ color: "#000000" }}
-          />
         </div>
         <div className="relative z-0 w-full mb-5 group">
           <input
