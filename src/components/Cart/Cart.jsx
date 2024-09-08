@@ -49,7 +49,7 @@ export default function Cart() {
     <>
       {Totalprice == 0 ? (
         <Link to={"/products"}>
-          <button className="bg-blue-500 text-center text-white px-6 py-3 rounded-lg mt-6">
+          <button className="bg-blue-500 mx-auto text-center text-white px-6 py-3 rounded-lg mt-6">
             Go to Fill 😍
           </button>
         </Link>
