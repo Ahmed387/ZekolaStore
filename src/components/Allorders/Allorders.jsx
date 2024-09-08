@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { CartContext } from "../CartContext/CartContext";
 import { Helmet } from "react-helmet";
+import { Link } from "react-router-dom";
 
 export default function Allorders() {
   const [products, setproducts] = useState([]);
@@ -44,7 +45,13 @@ export default function Allorders() {
       <h1 className="underline  text-center text-red-500 underline-offset-[14px] text-3xl font-semibol mb-5">
         Congratulation
       </h1>
-      <h2 className="text-xl font-serif my-12"> Your purchases :</h2>
+      <div className="mx-auto flex justify-center mt-40">
+        <Link to={"/products"}>
+          <button className="bg-blue-500  text-center text-white px-7 py-3 rounded-lg mt-6">
+            Go to Fill 😍
+          </button>
+        </Link>
+      </div>
       <div className="container mx-auto mt-10 ">
         <div className="flex flex-wrap justify-center items-center sm:gap-x-2 sm:gap-y-2 md:gap-x-4 md:gap-y-2 lg:gap-x-2 lg:gap-y-4 text-center mx-auto ">
           {products.map((product) => (

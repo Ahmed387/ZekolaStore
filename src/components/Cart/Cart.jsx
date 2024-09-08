@@ -48,11 +48,13 @@ export default function Cart() {
   return (
     <>
       {Totalprice == 0 ? (
-        <Link to={"/products"}>
-          <button className="bg-blue-500 mx-auto text-center text-white px-6 py-3 rounded-lg mt-6">
-            Go to Fill 😍
-          </button>
-        </Link>
+        <div className="mx-auto flex justify-center mt-40">
+          <Link to={"/products"}>
+            <button className="bg-blue-500  text-center text-white px-7 py-3 rounded-lg mt-6">
+              Go to Fill 😍
+            </button>
+          </Link>
+        </div>
       ) : (
         <div className=" container  mx-auto text-center flex justify-center flex-col  shadow-md sm:rounded-lg px-4 md:px-0">
           <table className="md:min-w-[50rem] text-sm text-left text-gray-500 dark:text-gray-400">
