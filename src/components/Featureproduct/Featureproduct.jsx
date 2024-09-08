@@ -299,7 +299,9 @@ export default function Featureproduct() {
                   <div className="icon mt-6 ">
                     <i
                       className={`fa-solid fa-heart fa-2xl  ${
-                        idbag[product.id] ? "text-red-600" : "text-black"
+                        (idbag[product.id] && Token.length > 0)
+                          ? "text-red-600"
+                          : "text-black"
                       }`}
                       onClick={() => toggle(product.id)}
                     />

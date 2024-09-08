@@ -22,7 +22,7 @@ export default function CategorySlider() {
   });
   //console.log(data?.data?.data);
   let All = data?.data?.data || [];
-  //console.log(All);
+ // console.log(All);
 
   return (
     <>
@@ -30,14 +30,14 @@ export default function CategorySlider() {
         <h2 className="text-2xl my-6">show popular Categories :</h2>
         <Slider {...settings}>
           {All?.map((src) => (
-            <div key={src?._id} className="text-center p-0 m-0">
+            <div key={src?._id} className="text-center p-0 mx-2">
               <img
                 key={src?._id}
-                className="w-full h-[200px]"
+                className="w-[5rem] h-[100px] md:w-[10rem] md:h-[200px]"
                 src={src.image}
                 alt="imageDetail"
               />
-              <h3 className="text-xl">{src.name}</h3>
+              <h3 className="text-[.5rem] md:text-xl">{src.name}</h3>
             </div>
           ))}
         </Slider>

@@ -1,11 +1,9 @@
 import { useContext, useEffect, useState } from "react";
 import { CartContext } from "../CartContext/CartContext";
-import style from "./Cart.module.css";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 
 export default function Cart() {
-  //// const [products, setproducts] = useState([]);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   let {
     ClearCart,
@@ -20,13 +18,11 @@ export default function Cart() {
 
   async function getcardproductsinto() {
     let response = await getcardproducts();
-    console.log(response?.data?.data?.products);
     setproducts(response?.data?.data?.products);
   }
 
   async function Deleted(productid) {
     let response = await Deleteitems(productid);
-    console.log(response);
     setproducts(response?.data?.data?.products);
   }
 
@@ -35,17 +31,16 @@ export default function Cart() {
       await Deleted(productid);
     } else {
       let response = await Updatecartitem(productid, count);
-      console.log(response);
       setproducts(response?.data?.data?.products);
     }
   }
 
   async function ClearCartproduct() {
     let response = await ClearCart();
-    console.log(response);
     setproducts([]);
     setTotalprice(0);
   }
+
   useEffect(() => {
     getcardproductsinto();
   }, []);
@@ -54,35 +49,31 @@ export default function Cart() {
     <>
       {Totalprice == 0 ? (
         <Link to={"/products"}>
-          <button
-            className={`${style.btn31} absolute top-1/2 right-1/2 translate-x-1/2`}
-          >
-            <span className={`${style.textcontainer}`}>
-              <span className={`${style.text}`}>Go to Fill 😍 </span>
-            </span>
+          <button className="bg-blue-500 text-center text-white px-6 py-3 rounded-lg mt-6">
+            Go to Fill 😍
           </button>
         </Link>
       ) : (
-        <div className="relative container mx-auto overflow-x-auto shadow-md sm:rounded-lg">
-          <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+        <div className=" container  mx-auto text-center flex justify-center flex-col  shadow-md sm:rounded-lg px-4 md:px-0">
+          <table className="md:min-w-[50rem] text-sm text-left text-gray-500 dark:text-gray-400">
             <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
               <tr>
-                <th scope="col" className="px-16 py-3">
-                  <span className="sr-only">Image</span>
+                <th scope="col" className="px-4 md:px-6 py-3">
+                  Image
                 </th>
-                <th scope="col" className="px-6 py-3">
+                <th scope="col" className="px-4 md:px-6 py-3">
                   Product
                 </th>
-                <th scope="col" className="px-6 py-3">
+                <th scope="col" className="px-4 md:px-6 py-3">
                   Quantity
                 </th>
-                <th scope="col" className="px-6 py-3">
-                  unit Price
+                <th scope="col" className="px-4 md:px-6 py-3">
+                  Unit Price
                 </th>
-                <th scope="col" className="px-6 py-3">
+                <th scope="col" className="px-4 md:px-6 py-3">
                   Total Price
                 </th>
-                <th scope="col" className="px-6 py-3">
+                <th scope="col" className="px-4 md:px-6 py-3">
                   Action
                 </th>
               </tr>
@@ -93,163 +84,148 @@ export default function Cart() {
                   key={product.product.id}
                   className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
                 >
-                  <td className="p-4">
+                  <td className="p-2 md:p-4">
                     <img
                       src={product.product.imageCover}
-                      className="w-16 md:w-32 max-w-full max-h-full"
-                      alt="Apple Watch"
+                      className="w-12 md:w-16 max-w-full"
+                      alt={product.product.title}
                     />
                   </td>
-                  <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
+                  <td className="px-4 md:px-6 py-4 font-semibold text-gray-900 dark:text-white">
                     {product.product.title}
                   </td>
-                  <td className="px-6 py-4">
+                  <td className="px-4 md:px-6 py-4">
                     <div className="flex items-center">
                       <button
-                        className="inline-flex items-center justify-center p-1 me-3 text-sm font-medium h-6 w-6 text-gray-500 bg-white border border-gray-300 rounded-full focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
                         onClick={() =>
                           UpToData(product.product.id, product.count - 1)
                         }
+                        className="inline-flex items-center justify-center h-6 w-6 p-1 text-gray-500 bg-white border rounded-full hover:bg-gray-100 dark:bg-gray-800 dark:text-gray-400"
                         type="button"
                       >
-                        <span className="sr-only">Quantity button</span>
+                        <span className="sr-only">Decrease</span>
                         <svg
                           className="w-3 h-3"
-                          aria-hidden="true"
-                          xmlns="http://www.w3.org/2000/svg"
                           fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
                           viewBox="0 0 18 2"
+                          xmlns="http://www.w3.org/2000/svg"
                         >
-                          <path
-                            stroke="currentColor"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M1 1h16"
-                          />
+                          <path d="M1 1h16" />
                         </svg>
                       </button>
-                      <div>
-                        <span>{product.count}</span>
-                      </div>
+                      <span className="mx-2">{product.count}</span>
                       <button
                         onClick={() =>
                           UpToData(product.product.id, product.count + 1)
                         }
-                        className="inline-flex items-center justify-center h-6 w-6 p-1 ms-3 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-full focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
+                        className="inline-flex items-center justify-center h-6 w-6 p-1 text-gray-500 bg-white border rounded-full hover:bg-gray-100 dark:bg-gray-800 dark:text-gray-400"
                         type="button"
                       >
-                        <span className="sr-only">Quantity button</span>
+                        <span className="sr-only">Increase</span>
                         <svg
                           className="w-3 h-3"
-                          aria-hidden="true"
-                          xmlns="http://www.w3.org/2000/svg"
                           fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
                           viewBox="0 0 18 18"
+                          xmlns="http://www.w3.org/2000/svg"
                         >
-                          <path
-                            stroke="currentColor"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M9 1v16M1 9h16"
-                          />
+                          <path d="M9 1v16M1 9h16" />
                         </svg>
                       </button>
                     </div>
                   </td>
-                  <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
+                  <td className="px-4 md:px-6 py-4 font-semibold text-gray-900 dark:text-white">
                     {product.price}
                   </td>
-                  <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
+                  <td className="px-4 md:px-6 py-4 font-semibold text-gray-900 dark:text-white">
                     {product.price * product.count}
                   </td>
-                  <td className="px-6 py-4">
-                    <p
+                  <td className="px-4 md:px-6 py-4">
+                    <button
                       onClick={() => Deleted(product.product.id)}
                       className="font-medium text-red-600 dark:text-red-500 hover:underline"
                     >
                       Remove
-                    </p>
+                    </button>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
-          {Totalprice > 0 ? (
-            <div className="bg-gray-300 flex justify-between px-6 py-5">
-              <div className="flex justify-center flex-col gap-2">
-                <button
-                  onClick={() => ClearCartproduct()}
-                  className="text-2xl text-white bg-red-600 px-2 py-1 rounded-md"
-                >
-                  Clear
-                </button>
-
-                <button
-                  onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                  id="dropdownRightButton"
-                  data-dropdown-toggle="dropdownRight"
-                  data-dropdown-placement="right"
-                  className="me-3 mb-3 md:mb-0 px-2 py-1 rounded-md text-white bg-blue-700 hover:bg-blue-800 font-medium  text-xl  text-center inline-flex items-center "
-                  type="button"
-                >
-                  Paywith
-                  <svg
-                    className="w-2.5 h-2.5 ms-3"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 6 10"
-                  >
-                    <path
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="m1 9 4-4-4-4"
-                    />
-                  </svg>
-                </button>
-                {isDropdownOpen && (
-                  <div
-                    id="dropdownRight"
-                    className="z-10  bg-white divide-y divide-gray-100 rounded-lg shadow w-44 "
-                  >
-                    <ul
-                      className="py-2 text-gray-700"
-                      aria-labelledby="dropdownRightButton"
-                    >
-                      <li>
-                        <Link
-                          to={"/checkout"}
-                          state={{ type: "Online Payment" }}
-                          className="block text-center  text-xl hover:text-white hover:bg-gray-600 text-black font-bold  px-2 py-1 rounded-md "
-                        >
-                          Online
-                        </Link>
-                      </li>
-                      <li>
-                        <Link
-                          to={"/checkout"}
-                          state={{ type: "Cash Payment" }}
-                          className="block text-xl text-center hover:bg-gray-600 hover:text-white text-black font-bold  px-2 py-1 rounded-md "
-                        >
-                          Cash
-                        </Link>
-                      </li>
-                    </ul>
+          <div className="flex justify-center mx-auto min-w-[32rem] px-4 md:px-0">
+            {Totalprice > 0 ? (
+              <div className="bg-white flex flex-col  w-full   gap-4 md:gap-6 items-center justify-center px-4 md:px-6 py-6 rounded-lg shadow-lg mt-6">
+                <div className="text-center">
+                  <div className="text-2xl md:text-3xl font-semibold text-gray-800 mb-2">
+                    Total:
                   </div>
-                )}
-              </div>
+                  <div className="text-3xl md:text-4xl font-bold text-black">
+                    {Totalprice} EGP
+                  </div>
+                </div>
+                <div className="flex flex-col md:flex-row gap-4 items-center">
+                  <button
+                    onClick={() => ClearCartproduct()}
+                    className="text-lg md:text-xl text-white bg-red-600 px-4 md:px-6 py-3 rounded-lg hover:bg-red-700 transition-all"
+                  >
+                    Clear Cart
+                  </button>
 
-              <div className="flex justify-evenly gap-x-6 w-full ">
-                <div className="text-2xl text-black">ToTal = </div>
+                  <div className="relative">
+                    <button
+                      onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                      className="px-4 md:px-6 py-3 text-lg md:text-xl text-white bg-blue-700 hover:bg-blue-800 rounded-lg flex items-center"
+                    >
+                      Pay with
+                      <svg
+                        className="w-4 h-4 md:w-5 md:h-5 ml-2"
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 6 10"
+                      >
+                        <path
+                          stroke="currentColor"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="m1 9 4-4-4-4"
+                        />
+                      </svg>
+                    </button>
 
-                <div className="text-2xl text-black ">{Totalprice} EGP </div>
+                    {isDropdownOpen && (
+                      <div className="absolute z-10 left-full bottom-7 ml-2 w-48 bg-white border border-gray-300 rounded-lg shadow-lg">
+                        <ul className="py-2">
+                          <li>
+                            <Link
+                              to={"/checkout"}
+                              state={{ type: "Online Payment" }}
+                              className="block text-lg text-center text-gray-700 hover:bg-gray-100 px-4 py-2 rounded-t-md"
+                            >
+                              Online
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
+                              to={"/checkout"}
+                              state={{ type: "Cash Payment" }}
+                              className="block text-lg text-center text-gray-700 hover:bg-gray-100 px-4 py-2 rounded-b-md"
+                            >
+                              Cash
+                            </Link>
+                          </li>
+                        </ul>
+                      </div>
+                    )}
+                  </div>
+                </div>
               </div>
-            </div>
-          ) : null}
+            ) : null}
+          </div>
         </div>
       )}
       <Helmet>

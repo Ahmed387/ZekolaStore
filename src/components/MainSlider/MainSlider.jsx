@@ -20,7 +20,7 @@ export default function MainSlider() {
   return (
     <>
       <div className="container mx-auto p-0 my-8">
-        <h1 className="text-3xl mb-4">Popular anime :</h1>
+        <h1 className="text-3xl mb-4">Popular products :</h1>
         <div className="flex">
           <div className="w-3/4">
             <Slider {...settings}>

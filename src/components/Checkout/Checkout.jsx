@@ -4,7 +4,6 @@ import { useContext, useEffect, useState } from "react";
 import { CartContext } from "../CartContext/CartContext";
 import { useLocation } from "react-router-dom";
 
-
 export default function Checkout() {
   const [isDisabled, setisDisabled] = useState(true);
   let { state } = useLocation();
@@ -57,10 +56,13 @@ export default function Checkout() {
 
   return (
     <>
-      <h1 className="text-2xl  font-bold text-center text-green-600">
+      <h1 className="text-2xl mt-3 md:mt-10 font-bold text-center text-green-600">
         {paymenttype}
       </h1>
-      <form onSubmit={formik.handleSubmit} className="max-w-2xl mx-auto mt-10 ">
+      <form
+        onSubmit={formik.handleSubmit}
+        className="max-w-2xl mx-auto mt-10  "
+      >
         <div className="relative z-0 min-w-full me-10 mb-5 group">
           <input
             type="text"
@@ -155,7 +157,6 @@ export default function Checkout() {
           PayNow
         </button>
       </form>
-
     </>
   );
 }

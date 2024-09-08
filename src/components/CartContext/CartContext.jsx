@@ -86,7 +86,7 @@ export default function CartContextprovider(props) {
   async function Payment(shippingAddress) {
     return await axios
       .post(
-        `https://ecommerce.routemisr.com/api/v1/orders/checkout-session/${Cartid}?url=http://localhost:5173`,
+        `https://ecommerce.routemisr.com/api/v1/orders/checkout-session/${Cartid}?url=https://zekola-store.vercel.app/allorders`,
         { shippingAddress },
         {
           headers,
